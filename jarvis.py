@@ -1,0 +1,45 @@
+import speech_recognition as sr
+import pyttsx3
+import datetime
+import os
+def speak(text):
+    engine = pyttsx3.init()
+    engine.say(text)
+    engine.runAndWait()
+
+def listen():
+    recognizer = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening...")
+        audio = recognizer.listen(source)
+        try:
+            command = recognizer.recognize_google(audio)
+            print(f"You said: {command}")
+            return command.lower()
+        except sr.UnknownValueError:
+            speak("Sorry, I didn't catch that. Could you repeat?")
+            return listen()
+
+def greet():
+    hour = datetime.datetime.now().hour
+    if hour < 12:
+        speak("Good morning! Allow me to introduce myself I am Jarvis, the virtual artificial intelligence and I'm here to assist you with a variety of tasks as best I can, 24 hours a day seven days a week.")
+    elif 12 <= hour < 18:
+        speak("Good afternoon! Allow me to introduce myself I am Jarvis, the virtual artificial intelligence and I'm here to assist you with a variety of tasks as best I can, 24 hours a day seven days a week.")
+    else:
+        speak("Good evening! Allow me to introduce myself I am Jarvis, the virtual artificial intelligence and I'm here to assist you with a variety of tasks as best I can, 24 hours a day seven days a week.")
+
+greet()
+
+def open_google():
+    speak("Opening Google")
+    os.system("start chrome")
+
+def execute_command(command):
+    if "open google" in command:
+        open_google()
+    # Add more commands here as you like
+
+while True:
+    command = listen()
+    execute_command(command)
