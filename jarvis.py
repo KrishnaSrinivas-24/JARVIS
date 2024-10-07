@@ -39,6 +39,20 @@ def execute_command(command):
     if "open google" in command:
         open_google()
     # Add more commands here as you like
+def execute_command(command):
+     if "open edge" in command:
+        open_Edge()
+    
+def open_Edge():
+    speak("Opening Edge")
+    os.system("start msedge")
+    
+def execute_command(command):
+    if "open youtube" in command:
+        open_youtube()
+def open_youtube():
+    speak("Opening Youtube")
+    os.system("start chrome https://www.youtube.com/")
 
 while True:
     command = listen()
