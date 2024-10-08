@@ -91,14 +91,14 @@ def execute_command(command):
     elif "open word" in command:
         print("Executing command to open Word.")
         open_word()
-    elif "open discord" in command:
-        print("Executing command to open Discord.")
-        open_discord()
+    # elif "open discord" in command:
+    #     print("Executing command to open Discord.")
+    #     open_discord()
     elif "open notepad" in command:
         print("Executing command to open Notepad.")
         open_notepad()
     elif "open powerpoint" in command:
-        print("Executing command to open Discord.")
+        print("Executing command to open powerpoint.")
         open_powerpoint()
     elif "open excel" in command:
         print("Executing command to open Excel.")
