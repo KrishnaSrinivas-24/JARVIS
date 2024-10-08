@@ -28,32 +28,101 @@ def greet():
         speak("Good afternoon! Allow me to introduce myself I am Jarvis, the virtual artificial intelligence and I'm here to assist you with a variety of tasks as best I can, 24 hours a day seven days a week.")
     else:
         speak("Good evening! Allow me to introduce myself I am Jarvis, the virtual artificial intelligence and I'm here to assist you with a variety of tasks as best I can, 24 hours a day seven days a week.")
-
 greet()
-
 def open_google():
     speak("Opening Google")
     os.system("start chrome")
 
-def execute_command(command):
-    if "open google" in command:
-        open_google()
-    # Add more commands here as you like
-def execute_command(command):
-     if "open edge" in command:
-        open_Edge()
-    
-def open_Edge():
+def open_edge():
     speak("Opening Edge")
     os.system("start msedge")
-    
-def execute_command(command):
-    if "open youtube" in command:
-        open_youtube()
+
 def open_youtube():
     speak("Opening Youtube")
     os.system("start chrome https://www.youtube.com/")
+    
+def open_spotify():
+    speak("Opening Spotify")
+    os.system("start spotify")
+    
+def open_word():
+    speak("Opening Word")
+    os.system("start winword")  # Correct for Microsoft Word
+    
+def open_powerpoint():
+    speak("Opening Power point")
+    os.system("start powerpnt") # Correct for Microsoft Power Point
+    
+def open_excel():
+    speak("Opening Excel")
+    os.system("start excel")  # Correct for Microsoft excel
+    
+def open_calculator():
+    speak("Opening Calculator")
+    os.system("start calc")
 
+def open_notepad():
+    speak("Opening Notepad")
+    os.system("start notepad")  # Correct for Notepad
+    
+def open_discord():
+    speak("Opening Discord")
+    os.system("start Discord")
+
+def open_command_prompt():
+    speak("Opening Command Prompt")
+    os.system("start cmd")
+def open_file_explorer():
+    speak("Opening File Explorer")
+    os.system("start explorer")
+def execute_command(command):
+    if "open google" in command:
+        print("Executing command to open Google.")
+        open_google()
+    elif "open edge" in command:
+        print("Executing command to open Edge.")
+        open_edge()
+    elif "open spotify" in command:
+        print("Executing command to open Spotify.")
+        open_spotify()
+    elif "open youtube" in command:
+        print("Executing command to open Youtube.")
+        open_youtube()
+    elif "open word" in command:
+        print("Executing command to open Word.")
+        open_word()
+    elif "open discord" in command:
+        print("Executing command to open Discord.")
+        open_discord()
+    elif "open notepad" in command:
+        print("Executing command to open Notepad.")
+        open_notepad()
+    elif "open powerpoint" in command:
+        print("Executing command to open Discord.")
+        open_powerpoint()
+    elif "open excel" in command:
+        print("Executing command to open Excel.")
+        open_excel()
+    elif "open calculator" in command:
+        print("Executing command to open Calculator.")
+        open_calculator()
+    elif "open command prompt" in command:
+        print("Executing command to open Command Prompt.")
+        open_command_prompt()
+    elif "open file explorer" in command:
+        print("Executing command to open File Explorer.")
+        open_file_explorer()
+    elif "exit" in command:
+        print("Exiting program.")
+        speak("Goodbye! Have a great day!")
+        
+    else:
+        print("Command not recognized.")
 while True:
     command = listen()
-    execute_command(command)
+    if "exit" in command:
+        execute_command(command)
+        break
+    else:
+        execute_command(command)
+    
