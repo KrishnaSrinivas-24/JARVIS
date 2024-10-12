@@ -65,9 +65,13 @@ def open_notepad():
     speak("Opening Notepad")
     os.system("start notepad")  # Correct for Notepad
     
+def open_github():
+    speak("Opening Github")
+    os.system("start chrome https://github.com/")
+    
 def open_discord():
     speak("Opening Discord")
-    os.system("start Discord")
+    os.system("start chrome https://discord.com/")
 
 def open_command_prompt():
     speak("Opening Command Prompt")
@@ -91,9 +95,9 @@ def execute_command(command):
     elif "open word" in command:
         print("Executing command to open Word.")
         open_word()
-    # elif "open discord" in command:
-    #     print("Executing command to open Discord.")
-    #     open_discord()
+    elif "open discord" in command:
+        print("Executing command to open Discord.")
+        open_discord()
     elif "open notepad" in command:
         print("Executing command to open Notepad.")
         open_notepad()
@@ -112,9 +116,12 @@ def execute_command(command):
     elif "open file explorer" in command:
         print("Executing command to open File Explorer.")
         open_file_explorer()
+    elif "open github" in command:
+        print("Executing command to open Github.")
+        open_github()
     elif "exit" in command:
         print("Exiting program.")
-        speak("Goodbye! Have a great day!")
+        speak("Goodbye... Have a great day!")
         
     else:
         print("Command not recognized.")
