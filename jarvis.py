@@ -1,13 +1,19 @@
+import google.generativeai as genai
 import speech_recognition as sr
 import pyttsx3
 import datetime
 import os
 
+# Set up Gemini API Key (Replace with your actual API key)
+genai.configure(api_key="YOUR_GEMINI_API_KEY")
+
+# Text-to-Speech
 def speak(text):
     engine = pyttsx3.init()
     engine.say(text)
     engine.runAndWait()
 
+# Speech Recognition
 def listen():
     recognizer = sr.Recognizer()
     with sr.Microphone() as source:
@@ -21,15 +27,23 @@ def listen():
             speak("Sorry, I didn't catch that. Could you repeat?")
             return listen()
 
+# Google Gemini AI Response
+def get_gemini_response(prompt):
+    model = genai.GenerativeModel("gemini-pro")  # Using "gemini-pro" for text generation
+    response = model.generate_content(prompt)
+    return response.text  # Extract the response text
+
+# Greet User
 def greet():
     hour = datetime.datetime.now().hour
     if hour < 12:
-        speak("Good morning! Allow me to introduce myself I am Jarvis, the virtual artificial intelligence and I'm here to assist you with a variety of tasks as best I can, 24 hours a day seven days a week.")
+        speak("Good morning! Allow me to introduce myself. I am Jarvis, your AI assistant.")
     elif 12 <= hour < 18:
-        speak("Good afternoon! Allow me to introduce myself I am Jarvis, the virtual artificial intelligence and I'm here to assist you with a variety of tasks as best I can, 24 hours a day seven days a week.")
+        speak("Good afternoon! Allow me to introduce myself. I am Jarvis, your AI assistant.")
     else:
-        speak("Good evening! Allow me to introduce myself I am Jarvis, the virtual artificial intelligence and I'm here to assist you with a variety of tasks as best I can, 24 hours a day seven days a week.")
+        speak("Good evening! Allow me to introduce myself. I am Jarvis, your AI assistant.")
 
+# Open Applications
 def open_google():
     speak("Opening Google")
     os.system("start chrome")
@@ -48,15 +62,15 @@ def open_spotify():
 
 def open_word():
     speak("Opening Word")
-    os.system("start winword")  # Correct for Microsoft Word
+    os.system("start winword")
 
 def open_powerpoint():
-    speak("Opening Power point")
-    os.system("start powerpnt") # Correct for Microsoft Power Point
+    speak("Opening PowerPoint")
+    os.system("start powerpnt")
 
 def open_excel():
     speak("Opening Excel")
-    os.system("start excel")  # Correct for Microsoft excel
+    os.system("start excel")
 
 def open_calculator():
     speak("Opening Calculator")
@@ -64,7 +78,7 @@ def open_calculator():
 
 def open_notepad():
     speak("Opening Notepad")
-    os.system("start notepad")  # Correct for Notepad
+    os.system("start notepad")
 
 def open_github():
     speak("Opening Github")
@@ -82,57 +96,46 @@ def open_file_explorer():
     speak("Opening File Explorer")
     os.system("start explorer")
 
+# Execute Commands
 def execute_command(command):
-    if "open google" in command.lower():
-        print("Executing command to open Google.")
+    if "open google" in command:
         open_google()
-    elif "open edge" in command.lower():
-        print("Executing command to open Edge.")
+    elif "open edge" in command:
         open_edge()
-    elif "open spotify" in command.lower():
-        print("Executing command to open Spotify.")
+    elif "open spotify" in command:
         open_spotify()
-    elif "open youtube" in command.lower():
-        print("Executing command to open Youtube.")
+    elif "open youtube" in command:
         open_youtube()
-    elif "open word" in command.lower():
-        print("Executing command to open Word.")
+    elif "open word" in command:
         open_word()
-    elif "open discord" in command.lower():
-        print("Executing command to open Discord.")
+    elif "open discord" in command:
         open_discord()
-    elif "open notepad" in command.lower():
-        print("Executing command to open Notepad.")
+    elif "open notepad" in command:
         open_notepad()
-    elif "open powerpoint" in command.lower():
-        print("Executing command to open powerpoint.")
+    elif "open powerpoint" in command:
         open_powerpoint()
-    elif "open excel" in command.lower():
-        print("Executing command to open Excel.")
+    elif "open excel" in command:
         open_excel()
-    elif "open calculator" in command.lower():
-        print("Executing command to open Calculator.")
+    elif "open calculator" in command:
         open_calculator()
-    elif "open command prompt" in command.lower():
-        print("Executing command to open Command Prompt.")
+    elif "open command prompt" in command:
         open_command_prompt()
-    elif "open file explorer" in command.lower():
-        print("Executing command to open File Explorer.")
+    elif "open file explorer" in command:
         open_file_explorer()
-    elif "open github" in command.lower():
-        print("Executing command to open Github.")
+    elif "open github" in command:
         open_github()
-    elif "exit" in command.lower():
-        print("Exiting program.")
-        speak("Goodbye... Have a great day!")
+    elif "exit" in command:
+        speak("Goodbye! Have a great day!")
+        exit()
     else:
-        print("Command not recognized.")
+        print("Command not recognized. Asking Google Gemini...")
+        speak("I am not sure, let me check.")
+        response = get_gemini_response(command)  # Ask Gemini for an answer
+        print(f"Gemini: {response}")
+        speak(response)
 
+# Start JARVIS
 greet()
 while True:
     command = listen()
-    if "exit" in command.lower():
-        execute_command(command)
-        break
-    else:
-        execute_command(command)
+    execute_command(command)
