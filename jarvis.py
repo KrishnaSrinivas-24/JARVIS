@@ -5,7 +5,7 @@ import datetime
 import os
 
 # Set up Gemini API Key (Replace with your actual API key)
-genai.configure(api_key="AIzaSyDg-DXTnDGb49w2QhcHkXZM4V7zYgyA6bg")
+genai.configure(api_key="Paste your API Here")
 
 # Text-to-Speech
 def speak(text):
@@ -139,3 +139,4 @@ greet()
 while True:
     command = listen()
     execute_command(command)
+
