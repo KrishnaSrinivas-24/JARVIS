@@ -18,20 +18,33 @@ def listen():
     recognizer = sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening...")
-        audio = recognizer.listen(source)
+        recognizer.adjust_for_ambient_noise(source, duration=0.5)
+        audio = recognizer.listen(source, timeout=5, phrase_time_limit=10)
         try:
             command = recognizer.recognize_google(audio)
             print(f"You said: {command}")
             return command.lower()
         except sr.UnknownValueError:
-            speak("Sorry, I didn't catch that. Could you repeat?")
-            return listen()
+            print("Could not understand audio")
+            speak("Sorry, I didn't catch that.")
+            return None
+        except sr.RequestError as e:
+            print(f"Could not request results; {e}")
+            speak("I'm having trouble with the speech service.")
+            return None
+        except sr.WaitTimeoutError:
+            print("Listening timed out")
+            return None
 
 # Google Gemini AI Response
 def get_gemini_response(prompt):
-    model = genai.GenerativeModel("gemini-pro")  # Using "gemini-pro" for text generation
-    response = model.generate_content(prompt)
-    return response.text  # Extract the response text
+    try:
+        model = genai.GenerativeModel("gemini-pro")  # Using "gemini-pro" for text generation
+        response = model.generate_content(prompt)
+        return response.text  # Extract the response text
+    except Exception as e:
+        print(f"Error getting Gemini response: {e}")
+        return "I'm having trouble connecting to my knowledge base right now."
 
 # Greet User
 def greet():
@@ -136,7 +149,10 @@ def execute_command(command):
 
 # Start JARVIS
 greet()
+print("JARVIS is ready. Say 'exit' to quit.")
 while True:
     command = listen()
-    execute_command(command)
+    if command:  # Only execute if we got a valid command
+        execute_command(command)
+    # Continue listening without restart delay
 
