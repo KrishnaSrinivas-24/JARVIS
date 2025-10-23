@@ -33,6 +33,24 @@ Run JARVIS:
 python jarvis.py
 ```
 
+You'll be prompted to choose a listening mode:
+- **Option 1: Wake Word Mode** - Say "Hey Jarvis" or "Jarvis" to activate
+- **Option 2: Always Listening Mode** - No wake word needed (default)
+
+### Wake Word Mode
+
+When using wake word mode:
+1. Wait for the prompt: `Waiting for wake word...`
+2. Say **"Hey Jarvis"** or **"Jarvis"**
+3. JARVIS will respond: "Yes? How can I help you?"
+4. Give your command
+5. Repeat for each command
+
+**Benefits:**
+- Privacy-friendly - only listens when activated
+- Saves battery on laptops
+- Reduces false positives in noisy environments
+
 ### Available Commands
 
 **Open Applications:**
@@ -51,6 +69,13 @@ python jarvis.py
 
 ## Recent Improvements
 
+### Wake Word Detection (Issue #2)
+- ✅ Added optional wake word mode with "Hey Jarvis" or "Jarvis" activation
+- ✅ User can choose between wake word mode and always-on mode at startup
+- ✅ Improved privacy - only listens when wake word is detected
+- ✅ Better battery efficiency for laptops
+- ✅ Reduced false positives in noisy environments
+
 ### Continuous Listening Optimization (Issue #1)
 - ✅ Removed recursive restart after unknown responses
 - ✅ Added proper error handling for all speech recognition exceptions
@@ -63,6 +88,7 @@ python jarvis.py
 - Faster response time between commands
 - Better error recovery
 - Smoother user experience
+- Privacy-friendly wake word option
 
 ## Requirements
 

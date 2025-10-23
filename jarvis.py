@@ -36,6 +36,33 @@ def listen():
             print("Listening timed out")
             return None
 
+# Wake Word Detection
+def listen_for_wake_word():
+    """Listen for the wake word 'Hey Jarvis' or 'Jarvis' to activate the assistant."""
+    recognizer = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Waiting for wake word... (Say 'Hey Jarvis' or 'Jarvis')")
+        recognizer.adjust_for_ambient_noise(source, duration=0.5)
+        try:
+            audio = recognizer.listen(source, timeout=10, phrase_time_limit=5)
+            text = recognizer.recognize_google(audio).lower()
+            print(f"Heard: {text}")
+            
+            # Check for wake words
+            if "hey jarvis" in text or "jarvis" in text or "hey" in text:
+                print("Wake word detected!")
+                speak("Yes? How can I help you?")
+                return True
+            return False
+        except sr.UnknownValueError:
+            return False
+        except sr.RequestError:
+            return False
+        except sr.WaitTimeoutError:
+            return False
+        except Exception:
+            return False
+
 # Google Gemini AI Response
 def get_gemini_response(prompt):
     try:
@@ -149,10 +176,34 @@ def execute_command(command):
 
 # Start JARVIS
 greet()
-print("JARVIS is ready. Say 'exit' to quit.")
+
+# Ask user for preferred mode
+print("\nSelect listening mode:")
+print("1. Wake Word Mode (Say 'Hey Jarvis' to activate)")
+print("2. Always Listening Mode (No wake word required)")
+mode_choice = input("Enter your choice (1 or 2, default is 2): ").strip()
+
+use_wake_word = (mode_choice == "1")
+
+if use_wake_word:
+    print("\n🎤 Wake Word Mode Enabled")
+    print("Say 'Hey Jarvis' or 'Jarvis' to activate the assistant.")
+    print("Say 'exit' to quit.\n")
+else:
+    print("\n🎤 Always Listening Mode Enabled")
+    print("JARVIS is ready. Say 'exit' to quit.\n")
+
 while True:
-    command = listen()
-    if command:  # Only execute if we got a valid command
-        execute_command(command)
-    # Continue listening without restart delay
+    if use_wake_word:
+        # Wait for wake word
+        if listen_for_wake_word():
+            # Wake word detected, listen for command
+            command = listen()
+            if command:
+                execute_command(command)
+    else:
+        # Always listening mode (original behavior)
+        command = listen()
+        if command:
+            execute_command(command)
 
