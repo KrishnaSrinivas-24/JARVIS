@@ -5,9 +5,13 @@ A Python-based voice assistant that can execute commands, open applications, and
 ## Features
 
 ✨ **Voice Commands** - Control your computer with natural speech
-🎤 **Continuous Listening** - Always ready without restart delays
+🎤 **Wake Word Detection** - Activate with "Hey Jarvis" or always-listening mode
 🤖 **AI-Powered** - Uses Google Gemini for intelligent responses
 🚀 **Quick Actions** - Open apps, browsers, and system tools instantly
+⏰ **Time & Date** - Get current time and date information
+🔍 **Web Search** - Search the web with voice commands
+💻 **System Control** - Shutdown, restart, and get system information
+📱 **18+ Applications** - Open popular apps with simple voice commands
 
 ## Installation
 
@@ -57,12 +61,28 @@ When using wake word mode:
 - "Open Google" / "Open Edge" - Launch browsers
 - "Open YouTube" / "Open Spotify" - Media platforms
 - "Open Word" / "Open Excel" / "Open PowerPoint" - Office apps
-- "Open Notepad" / "Open Calculator" - System utilities
+- "Open Notepad" / "Open Calculator" / "Open Paint" - System utilities
+- "Open VS Code" / "Open Visual Studio Code" - Code editor
 - "Open GitHub" / "Open Discord" - Dev tools
 - "Open Command Prompt" / "Open File Explorer" - System access
+- "Open Settings" / "Open Task Manager" - System settings
+
+**Time & Date:**
+- "What time is it?" / "Tell me the time"
+- "What's the date?" / "What's today?"
+
+**Web Search:**
+- "Search for [query]" - Search Google for anything
+- Example: "Search for Python tutorials"
+
+**System Control:**
+- "System info" / "System information" - Get OS details
+- "Shutdown" - Shutdown computer (30 second delay)
+- "Restart" / "Reboot" - Restart computer (30 second delay)
+- "Cancel" - Cancel pending shutdown/restart
 
 **Exit:**
-- "Exit" - Close JARVIS
+- "Exit" / "Quit" / "Bye" - Close JARVIS
 
 **General Questions:**
 - Ask anything! If JARVIS doesn't recognize a command, it will use Gemini AI to answer your question.
