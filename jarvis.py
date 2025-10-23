@@ -77,102 +77,207 @@ def get_gemini_response(prompt):
 def greet():
     hour = datetime.datetime.now().hour
     if hour < 12:
-        speak("Good morning! Allow me to introduce myself. I am Jarvis, your AI assistant.")
+        speak("Good morning Sir! Allow me to introduce myself. I am Jarvis, your AI assistant.")
     elif 12 <= hour < 18:
-        speak("Good afternoon! Allow me to introduce myself. I am Jarvis, your AI assistant.")
+        speak("Good afternoon Sir! Allow me to introduce myself. I am Jarvis, your AI assistant.")
     else:
-        speak("Good evening! Allow me to introduce myself. I am Jarvis, your AI assistant.")
+        speak("Good evening Sir! Allow me to introduce myself. I am Jarvis, your AI assistant.")
 
-# Open Applications
-def open_google():
-    speak("Opening Google")
-    os.system("start chrome")
+# Open Applications - Dictionary-based approach
+APPLICATIONS = {
+    "google": {
+        "command": "start chrome",
+        "speech": "Opening Google"
+    },
+    "edge": {
+        "command": "start msedge",
+        "speech": "Opening Edge"
+    },
+    "youtube": {
+        "command": "start chrome https://www.youtube.com/",
+        "speech": "Opening Youtube"
+    },
+    "spotify": {
+        "command": "start spotify",
+        "speech": "Opening Spotify"
+    },
+    "word": {
+        "command": "start winword",
+        "speech": "Opening Word"
+    },
+    "powerpoint": {
+        "command": "start powerpnt",
+        "speech": "Opening PowerPoint"
+    },
+    "excel": {
+        "command": "start excel",
+        "speech": "Opening Excel"
+    },
+    "calculator": {
+        "command": "start calc",
+        "speech": "Opening Calculator"
+    },
+    "notepad": {
+        "command": "start notepad",
+        "speech": "Opening Notepad"
+    },
+    "github": {
+        "command": "start chrome https://github.com/",
+        "speech": "Opening Github"
+    },
+    "discord": {
+        "command": "start chrome https://discord.com/",
+        "speech": "Opening Discord"
+    },
+    "command prompt": {
+        "command": "start cmd",
+        "speech": "Opening Command Prompt"
+    },
+    "file explorer": {
+        "command": "start explorer",
+        "speech": "Opening File Explorer"
+    },
+    "vs code": {
+        "command": "start code",
+        "speech": "Opening Visual Studio Code"
+    },
+    "visual studio code": {
+        "command": "start code",
+        "speech": "Opening Visual Studio Code"
+    },
+    "paint": {
+        "command": "start mspaint",
+        "speech": "Opening Paint"
+    },
+    "settings": {
+        "command": "start ms-settings:",
+        "speech": "Opening Settings"
+    },
+    "task manager": {
+        "command": "start taskmgr",
+        "speech": "Opening Task Manager"
+    }
+}
 
-def open_edge():
-    speak("Opening Edge")
-    os.system("start msedge")
+def open_application(app_name):
+    """Open an application based on its name."""
+    if app_name in APPLICATIONS:
+        app_info = APPLICATIONS[app_name]
+        speak(app_info["speech"])
+        os.system(app_info["command"])
+        return True
+    return False
 
-def open_youtube():
-    speak("Opening Youtube")
-    os.system("start chrome https://www.youtube.com/")
+# Utility Functions
+def get_time():
+    """Get current time."""
+    now = datetime.datetime.now()
+    time_str = now.strftime("%I:%M %p")
+    speak(f"The time is {time_str}")
+    print(f"Time: {time_str}")
 
-def open_spotify():
-    speak("Opening Spotify")
-    os.system("start spotify")
+def get_date():
+    """Get current date."""
+    now = datetime.datetime.now()
+    date_str = now.strftime("%B %d, %Y")
+    day = now.strftime("%A")
+    speak(f"Today is {day}, {date_str}")
+    print(f"Date: {day}, {date_str}")
 
-def open_word():
-    speak("Opening Word")
-    os.system("start winword")
+def search_web(query):
+    """Search the web for a query."""
+    speak(f"Searching for {query}")
+    search_url = f"start chrome https://www.google.com/search?q={query.replace(' ', '+')}"
+    os.system(search_url)
 
-def open_powerpoint():
-    speak("Opening PowerPoint")
-    os.system("start powerpnt")
+def get_system_info():
+    """Get basic system information."""
+    import platform
+    system = platform.system()
+    release = platform.release()
+    machine = platform.machine()
+    speak(f"You are running {system} {release} on {machine} architecture")
+    print(f"System: {system} {release}")
+    print(f"Architecture: {machine}")
 
-def open_excel():
-    speak("Opening Excel")
-    os.system("start excel")
+def shutdown_system():
+    """Shutdown the system."""
+    speak("Shutting down the system in 30 seconds. Say cancel to abort.")
+    os.system("shutdown /s /t 30")
 
-def open_calculator():
-    speak("Opening Calculator")
-    os.system("start calc")
+def restart_system():
+    """Restart the system."""
+    speak("Restarting the system in 30 seconds. Say cancel to abort.")
+    os.system("shutdown /r /t 30")
 
-def open_notepad():
-    speak("Opening Notepad")
-    os.system("start notepad")
-
-def open_github():
-    speak("Opening Github")
-    os.system("start chrome https://github.com/")
-
-def open_discord():
-    speak("Opening Discord")
-    os.system("start chrome https://discord.com/")
-
-def open_command_prompt():
-    speak("Opening Command Prompt")
-    os.system("start cmd")
-
-def open_file_explorer():
-    speak("Opening File Explorer")
-    os.system("start explorer")
+def cancel_shutdown():
+    """Cancel scheduled shutdown or restart."""
+    speak("Shutdown cancelled")
+    os.system("shutdown /a")
 
 # Execute Commands
 def execute_command(command):
-    if "open google" in command:
-        open_google()
-    elif "open edge" in command:
-        open_edge()
-    elif "open spotify" in command:
-        open_spotify()
-    elif "open youtube" in command:
-        open_youtube()
-    elif "open word" in command:
-        open_word()
-    elif "open discord" in command:
-        open_discord()
-    elif "open notepad" in command:
-        open_notepad()
-    elif "open powerpoint" in command:
-        open_powerpoint()
-    elif "open excel" in command:
-        open_excel()
-    elif "open calculator" in command:
-        open_calculator()
-    elif "open command prompt" in command:
-        open_command_prompt()
-    elif "open file explorer" in command:
-        open_file_explorer()
-    elif "open github" in command:
-        open_github()
-    elif "exit" in command:
+    # Check for exit command
+    if "exit" in command or "quit" in command or "bye" in command:
         speak("Goodbye! Have a great day!")
         exit()
-    else:
-        print("Command not recognized. Asking Google Gemini...")
-        speak("I am not sure, let me check.")
-        response = get_gemini_response(command)  # Ask Gemini for an answer
-        print(f"Gemini: {response}")
-        speak(response)
+    
+    # Time and Date queries
+    if "time" in command:
+        get_time()
+        return
+    
+    if "date" in command or "today" in command:
+        get_date()
+        return
+    
+    # System commands
+    if "system info" in command or "system information" in command:
+        get_system_info()
+        return
+    
+    if "shutdown" in command:
+        shutdown_system()
+        return
+    
+    if "restart" in command or "reboot" in command:
+        restart_system()
+        return
+    
+    if "cancel" in command:
+        cancel_shutdown()
+        return
+    
+    # Web search
+    if "search for" in command or "search" in command:
+        # Extract search query
+        if "search for" in command:
+            query = command.split("search for", 1)[1].strip()
+        else:
+            query = command.split("search", 1)[1].strip()
+        if query:
+            search_web(query)
+            return
+    
+    # Check for "open" commands
+    if "open" in command:
+        # Extract the app name after "open"
+        words = command.split()
+        if "open" in words:
+            open_index = words.index("open")
+            # Get everything after "open" as the app name
+            app_name = " ".join(words[open_index + 1:])
+            
+            # Try to open the application
+            if open_application(app_name):
+                return  # Successfully opened
+    
+    # If command not recognized, ask Gemini
+    print("Command not recognized. Asking Google Gemini...")
+    speak("I am not sure, let me check.")
+    response = get_gemini_response(command)
+    print(f"Gemini: {response}")
+    speak(response)
 
 # Start JARVIS
 greet()
